@@ -15,4 +15,4 @@ app.use('/test', testRouter)
 
 //Start server
 const port = app.get('port') || 6969;
-app.listen(port, () => console.log(`Server is listening on ${port}`));
+app.listen(port, () => console.log(`Server is listening on ${port} `));
