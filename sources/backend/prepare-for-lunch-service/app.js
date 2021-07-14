@@ -31,10 +31,17 @@ const socketConfig = {
 
 const io = new Server(socketServer, socketConfig);
 
-function run(socket) {
-    console.log(socket.id);
-    console.log('Socket run !');
+function onConnect(socket) {
+    console.log(socket.id + ' Connected !');
+    console.log(`Total: ${io.engine.clientsCount}`);
     socket.emit('greeting', 'Hello from Socket.IO server');
 }
 
-io.sockets.on('connection', run);
+function onDisconnect(socket) {
+    console.log(socket.id + ' Disconnected !');
+    console.log(`Total: ${io.engine.clientsCount}`);
+}
+
+io.sockets.on('connection', onConnect);
+
+io.sockets.on('disconnect', onDisconnect);
