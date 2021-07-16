@@ -1,0 +1,43 @@
+.aim-lunch-user-page {
+  padding: 0 180px;
+
+  .ant-input-group-wrapper {
+    width: auto !important;
+    flex: 1;
+  }
+
+  .aim-lunch-user-page__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aim-lunch-user-page__body {
+    .aim-lunch-user-page__body-search {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .aim-lunch-searchbar {
+        flex: 1;
+        margin-right: 24px;
+      }
+    }
+
+    .aim-lunch-user-page__body-list-user {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      column-gap: 24px;
+      row-gap: 8px;
+    }
+  }
+
+  .aim-lunch-user-page__footer {
+    display: flex;
+    margin-top: 24px;
+    justify-content: center;
+
+    button {
+      width: 528px;
+    }
+  }
+}

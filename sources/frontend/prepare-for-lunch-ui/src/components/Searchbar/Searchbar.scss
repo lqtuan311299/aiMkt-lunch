@@ -1,0 +1,13 @@
+.aim-lunch-searchbar {
+  height: 48px;
+
+  .ant-input-affix-wrapper {
+    height: 100% !important;
+    border-radius: 8px;
+  }
+
+  .ant-input-prefix {
+    margin-right: 18px !important;
+    margin-left: 12px !important;
+  }
+}

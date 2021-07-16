@@ -1,0 +1,8 @@
+.aim-lunch-checkbox {
+  cursor: pointer;
+
+  .ant-checkbox-input:checked {
+    background: #2bb66b !important;
+    color: #2bb66b !important;
+  }
+}

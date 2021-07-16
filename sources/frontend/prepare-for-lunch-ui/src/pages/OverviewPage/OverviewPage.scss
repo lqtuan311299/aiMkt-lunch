@@ -1,0 +1,23 @@
+.aim-lunch-overview-page {
+  padding: 0 365px;
+
+  .aim-lunch-overview-page__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aim-lunch-overview-page__body {
+    .aim-lunch-overview-page__body-list-overview {
+    }
+  }
+
+  .aim-lunch-overview-page__footer {
+    display: flex;
+    margin-top: 24px;
+    justify-content: center;
+
+    button {
+      width: 528px;
+    }
+  }
+}

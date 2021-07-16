@@ -1,0 +1,28 @@
+.aim-lunch-food {
+  height: 120px;
+  background: #f3f5fb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .aim-lunch-food__img {
+    width: 120px;
+    height: 100%;
+    background: #000;
+  }
+
+  .aim-lunch-food__info {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin-left: 16px;
+    flex: 1;
+  }
+
+  .aim-lunch-food__delete {
+    height: 16px;
+    margin-right: 16px;
+    cursor: pointer;
+  }
+}
