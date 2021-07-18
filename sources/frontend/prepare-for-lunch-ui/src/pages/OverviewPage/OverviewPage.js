@@ -11,6 +11,41 @@ import './OverviewPage.scss';
 
 Overview.propTypes = {};
 
+const DATA = [
+  {
+    orderId: 1,
+    orderName: 'Ngày 15/07/2021',
+    message: 'Các chị em ra giữ chỗ...',
+    createdDate: '1626358010948',
+    works: [
+      {
+        workName: '50% đũa',
+        assignTo: 'lqtuan',
+      },
+      {
+        workName: '50% đũa',
+        assignTo: 'bvminh',
+      },
+    ],
+  },
+  {
+    orderId: 2,
+    orderName: 'Ngày 16/07/2021',
+    message: 'Các chị em ra giữ chỗ...',
+    createdDate: '1626368400000',
+    works: [
+      {
+        workName: '50% đũa',
+        assignTo: 'lqtuan',
+      },
+      {
+        workName: '50% đũa',
+        assignTo: 'bvminh',
+      },
+    ],
+  },
+];
+
 /**
  *
  * @param {*} props
@@ -28,15 +63,23 @@ function Overview(props) {
         <span className='aim-lunch-page-title'>Lễ giao nhiệm vụ</span>
       </div>
       <div className='aim-lunch-overview-page__body'>
-        <div className='aim-lunch-overview-page__body-list-overview'>
-          {Array.from(Array(8)).map((user, index) => (
-            <OverviewInstance
-              username={'pham quang huy1'}
-              percent={'25%'}
-              food={'com'}
-            />
-          ))}
-        </div>
+        {DATA?.reverse().map((item) => (
+          <>
+            <span className='aim-lunch-font-label'>{item.orderName}</span>
+            <div className='aim-lunch-overview-page__body-list-overview'>
+              {item?.works?.map((work, index) => (
+                <OverviewInstance
+                  username={work?.assignTo}
+                  percent={work?.workName?.split(' ')?.[0]}
+                  food={
+                    work?.workName?.split(' ')?.[1] ||
+                    work?.workName?.split(' ')?.[0]
+                  }
+                />
+              ))}
+            </div>
+          </>
+        ))}
       </div>
       <div className={'aim-lunch-overview-page__footer'}>
         <Button

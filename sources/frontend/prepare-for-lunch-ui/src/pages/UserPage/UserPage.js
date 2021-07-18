@@ -10,6 +10,12 @@ import './UserPage.scss';
 
 UserPage.propTypes = {};
 
+const USERS_DATA = [
+  { shortName: 'lqtuan', name: 'Lê Quốc Tuấn', status: 1 },
+  { shortName: 'pqhuy1', name: 'Phạm Quang Huy', status: 0 },
+  { shortName: 'bvminh', name: 'Bùi Văn Minh', status: 1 },
+];
+
 /**
  *
  * @param {*} props
@@ -48,8 +54,8 @@ function UserPage(props) {
         </div>
 
         <div className='aim-lunch-user-page__body-list-user'>
-          {Array.from(Array(8)).map((user, index) => (
-            <User username={'pham quang huy1'} shortname={'pqhuy'} />
+          {USERS_DATA.map((user, index) => (
+            <User username={user.name} shortname={user.shortName} />
           ))}
         </div>
       </div>
