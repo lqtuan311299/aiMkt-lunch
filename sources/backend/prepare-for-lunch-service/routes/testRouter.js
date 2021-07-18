@@ -1,12 +1,11 @@
-import express from "express";
-import testController from "../controllers/testController.js";
+import express from 'express';
+import dataLunch from '../controllers/testController.js';
 
-const testRouter = express.Router();
+const allDataLunch = express.Router();
 
+allDataLunch
+  .route('/')
+  .get(dataLunch.getAllDataInFile)
+  .post(dataLunch.postDataIntoFile);
 
-testRouter.route('/')
-    .get(testController.test)
-    .post()
-    .delete()
-
-export default testRouter;
+export default allDataLunch;
