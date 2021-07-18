@@ -52,7 +52,7 @@ function Overview(props) {
         <span className='aim-lunch-page-title'>Lễ giao nhiệm vụ</span>
       </div>
       <div className='aim-lunch-overview-page__body'>
-        {dataOrder?.reverse().map((item) => (
+        {dataOrder?.map((item) => (
           <>
             <span className='aim-lunch-font-label'>{item.orderName}</span>
             <div className='aim-lunch-overview-page__body-list-overview'>

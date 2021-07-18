@@ -192,6 +192,12 @@ function MenuPage(props) {
         <Button
           value={'Chia viec'}
           onClick={() => {
+            if (userCount < dataWork?.length) {
+              notification.error({
+                message: 'so nguoi it hon so cong viec',
+              });
+              return;
+            }
             axios
               .post(ORDER_ENDPOINT, {
                 orderName: new Date().toISOString(),
@@ -206,7 +212,6 @@ function MenuPage(props) {
                 });
               });
           }}
-          disabled={userCount < dataWork?.length}
         />
       </div>
     </div>
