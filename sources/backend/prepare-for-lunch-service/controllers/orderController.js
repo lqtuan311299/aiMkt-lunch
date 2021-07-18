@@ -24,7 +24,7 @@ const createOrder = (req, res) => {
 
     let { works, users } = { ...data };
 
-    users = users.filter((user) => user.status === 1);
+    users = users.filter((user) => user.status == 1 && user.gender == 1);
 
     let newOrder = {
         orderId: id,
