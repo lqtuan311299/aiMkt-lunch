@@ -23,3 +23,8 @@ export const CHECKBOX_STATUS = {
   UNCHECK: 0,
   CHECKED: 1,
 };
+
+export const GENDER = {
+  WOMAN: 0,
+  MAN: 1,
+};

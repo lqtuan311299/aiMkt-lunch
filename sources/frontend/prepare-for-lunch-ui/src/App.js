@@ -10,9 +10,7 @@ import OverviewPage from './pages/OverviewPage/OverviewPage';
 const socket = io('127.0.0.1:6699');
 function App() {
   useEffect(() => {
-    socket.on('greeting', (res) => {
-      alert(res);
-    });
+    socket.on('greeting', (res) => {});
   }, []);
   return (
     <div className='App'>

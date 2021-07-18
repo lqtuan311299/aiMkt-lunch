@@ -14,6 +14,7 @@ User.propTypes = {
   onDelete: PropTypes.func,
   onChangeStatus: PropTypes.func,
   status: PropTypes.any,
+  avatar: PropTypes.any,
 };
 
 User.defaultProps = {
@@ -24,20 +25,30 @@ User.defaultProps = {
   onDelete: () => {},
   onChangeStatus: () => {},
   status: USER_STATUS.ACTIVE,
+  avatar: 'NAM',
 };
 
 function User(props) {
-  const { classname, style, username, shortname, onDelete } = props;
+  const {
+    classname,
+    style,
+    username,
+    shortname,
+    onDelete,
+    status,
+    onChangeStatus,
+    avatar,
+  } = props;
   return (
     <div className='aim-lunch-user'>
       <div className='aim-lunch-user__status'>
         <Checkbox
-          status={CHECKBOX_STATUS.CHECKED}
+          status={status}
           onCheck={() => onChangeStatus && onChangeStatus()}
         />
       </div>
       <div className='aim-lunch-user__info'>
-        <Avatar size={48} />
+        <Avatar size={48}>{avatar}</Avatar>
         <div className='aim-lunch-user__info-text'>
           <div className='aim-lunch-user__info-text-username aim-lunch-font-label '>
             {username}

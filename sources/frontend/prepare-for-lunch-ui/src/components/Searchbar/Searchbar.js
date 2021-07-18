@@ -26,10 +26,9 @@ function Searchbar(props) {
     <div className='aim-lunch-searchbar'>
       <Input
         placeholder={placehoder}
-        onSearch={() => {
-          onSearch && onSearch();
-        }}
+        onChange={onSearch}
         prefix={<IconSearch />}
+        value={value}
       />
     </div>
   );
