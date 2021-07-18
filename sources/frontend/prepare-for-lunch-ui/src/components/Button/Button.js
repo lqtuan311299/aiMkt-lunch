@@ -11,6 +11,7 @@ Button.propTypes = {
   prefix: PropTypes.any,
   onClick: PropTypes.func,
   type: PropTypes.any,
+  disabled: PropTypes.any,
 };
 
 Button.defaultProps = {
@@ -21,12 +22,15 @@ Button.defaultProps = {
   prefix: null,
   onClick: () => {},
   type: BTN_TYPE.TYPE_2,
+  disabled: false,
 };
 
 function Button(props) {
-  const { classname, style, value, suffix, prefix, onClick, type } = props;
+  const { classname, style, value, suffix, prefix, onClick, type, disabled } =
+    props;
   return (
     <button
+      disabled={disabled}
       onClick={() => onClick && onClick()}
       className={type + ' ' + classname}
       style={style}

@@ -1,4 +1,5 @@
-import React from 'react';
+import { Input } from 'antd';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Food from '../../components/Food/Food';
@@ -16,6 +17,7 @@ MenuPage.propTypes = {};
  * @returns
  */
 function MenuPage(props) {
+  const [numberOfFood, setNumberOfFood] = useState(null);
   const history = useHistory();
   /**
    *
@@ -38,7 +40,18 @@ function MenuPage(props) {
       <div className='aim-lunch-menu-page__body'>
         <div className='aim-lunch-menu-page__body-search'>
           <Searchbar placehoder={'Tim kiem theo ten'} onSearch={onSearch} />
+          <Input
+            value={numberOfFood}
+            onChange={(e) => {
+              setNumberOfFood(e.target.value);
+            }}
+            min={1}
+            style={{ height: 48, borderRadius: 8, marginRight: 24, width: 100 }}
+            type={'number'}
+            placeholder={'So luong'}
+          />
           <Button
+            disabled={!numberOfFood || numberOfFood < 1}
             type={BTN_TYPE.TYPE_3}
             value={'Them mon'}
             prefix={<IconAddUser />}
