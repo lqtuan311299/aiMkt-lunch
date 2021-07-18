@@ -1,133 +1,90 @@
 import fs from 'fs';
+import { getRandomInt, uuidv4 } from '../utils/commonFunctions';
+
+const buildOrderWork = function (works) {
+    let orderWork = [];
+    for (let i = 0; i < works.length; i++) {
+        const element = works[i];
+        for (let index = 0; index < element.workCount; index++) {
+            const work = element;
+            const { workName } = work;
+            orderWork.push({
+                workName,
+            });
+        }
+    }
+    return orderWork;
+};
 
 const createOrder = (req, res) => {
-  let rawdata = fs.readFileSync('./data/memberLunch.json');
-  let data = JSON.parse(rawdata);
-  let orderId = req.params.orderId;
-  let date = new Date();
+    let rawdata = fs.readFileSync('./data/memberLunch.json');
+    let data = JSON.parse(rawdata);
 
-  // số người lấy thức ăn
-  // let memberGetFood = data.users.filter(
-  //   (m) => m.status === 1 && m.gender === 1
-  // );
+    let id = uuidv4();
 
-  // số người đi làm
-  let sumMemberEat = data.users.filter((m) => m.status === 1).length;
-  console.log(memberGetFood, sumMemberEat);
-  if (orderId === 'multi') {
-  } else {
-    let dataNew = {
-      orderId: data.orders.length + 1,
-      orderName: `Ngày ${date.getDate()}/${
-        date.getMonth() + 1
-      }/${date.getFullYear()}`,
-      message: 'Các chị em ra giữ chỗ...',
-      createdDate: `${date.getTime()}`,
-      works: [
-        // {
-        //   workName: '50% đũa',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% đũa',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% thìa',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% thìa',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Dưa cà',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Dưa cà',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Mắm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Mắm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Lạc',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '50% Lạc',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Cơm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Cơm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Cơm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Cơm',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Canh',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Canh',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Canh',
-        //   assignTo: '',
-        // },
-        // {
-        //   workName: '25% Canh',
-        //   assignTo: '',
-        // },
-      ],
+    let { works, users } = { ...data };
+
+    users = users.filter((user) => user.status === 1);
+
+    let newOrder = {
+        orderId: id,
+        orderName: req.body.orderName,
+        message: req.body.message,
+        createdDate: Date.now(),
     };
-    data.orders.push(dataNew);
-  }
-  if (data.orders.length > 30) {
-    data.orders.splice(0, 1);
-  }
-  fs.writeFileSync('./data/memberLunch.json', JSON.stringify(data));
-  return res.status(200).send(data);
+
+    console.log(req);
+
+    let worksOrder = buildOrderWork(works);
+
+    worksOrder.forEach((workOrder) => {
+        //Gán random người chưa có việc vào công việc
+        let _usersNotAssign = users.filter((user) =>
+            worksOrder.every((work) => work.assignTo != user.shortName)
+        );
+
+        let _randomUserIndex = getRandomInt(_usersNotAssign.length);
+        workOrder.assignTo = _usersNotAssign[_randomUserIndex]?.shortName;
+    });
+
+    newOrder.works = worksOrder;
+
+    data.orders.push(newOrder);
+
+    fs.writeFileSync('./data/memberLunch.json', JSON.stringify(data));
+
+    //Xóa nếu lớn hơn 30
+    if (data.orders.length > 30) data.orders.shift();
+
+    return res.status(200).send({ message: 'Success', id: id });
 };
 
 const getAllOrder = (req, res) => {
-  let rawdata = fs.readFileSync('./data/memberLunch.json');
-  let data = JSON.parse(rawdata);
-  let response = data.orders;
-  let orderId = req.params.orderId;
-  if (orderId !== 'all') {
-    orderId = parseInt(orderId);
-    response = response.filter((order) => order.orderId === orderId);
-  }
-  return res.status(200).send(response);
+    let rawdata = fs.readFileSync('./data/memberLunch.json');
+    let data = JSON.parse(rawdata);
+    let response = data.orders.sort((a, b) => b.createdDate - a.createdDate);
+    return res.status(200).send(response);
 };
 
-const updateMultiOrder = (req, res) => {};
+const getOneOrder = (req, res) => {
+    let rawdata = fs.readFileSync('./data/memberLunch.json');
+    let data = JSON.parse(rawdata);
+    let id = req.params.orderId;
 
-const deleteMultiOrder = (req, res) => {};
+    let response = data.orders.find((order) => order.orderId == id);
+    return res.status(200).send(response);
+};
+
+const updateOneOrder = (req, res) => {};
+
+const deleteOneOrder = (req, res) => {};
 
 const order = {
-  createOrder,
-  getAllOrder,
-  updateMultiOrder,
-  deleteMultiOrder,
+    createOrder,
+    getAllOrder,
+    updateOneOrder,
+    deleteOneOrder,
+    getOneOrder,
 };
 
 export default order;
